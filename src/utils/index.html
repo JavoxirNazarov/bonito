@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <Script>
+    const fallbackToAppStore = function () {
+      window.location.replace(
+        'https://apps.apple.com/uz/app/bonito-kids/id1537230309',
+      );
+    };
+
+    const fallbackToPlayMarket = function () {
+      window.location.replace(
+        'https://play.google.com/store/apps/details?id=com.bonito',
+      );
+    };
+    const openApp = function () {
+      const params = new URLSearchParams(window.location.search);
+      const referal = params.get('referal');
+
+      window.location.replace('bonito://app/Referal/' + referal);
+    };
+
+    const triggerAppOpen = function () {
+      openApp();
+
+      const platform = getPlatform();
+
+      if (platform == 'iOS') setTimeout(fallbackToAppStore, 250);
+      else if (platform == 'Android') setTimeout(fallbackToPlayMarket, 250);
+    };
+
+    function getPlatform() {
+      var platform = ['Android', 'iOS'];
+
+      for (var i = 0; i < platform.length; i++) {
+        if (navigator.platform.includes(platform[i])) {
+          return platform[i];
+        }
+      }
+    }
+
+    triggerAppOpen();
+
+  </Script>
+</body>
+
+</html>

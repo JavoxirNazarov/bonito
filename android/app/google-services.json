@@ -1,0 +1,155 @@
+{
+  "project_info": {
+    "project_number": "1059128280296",
+    "firebase_url": "https://apexpizzadelivery.firebaseio.com",
+    "project_id": "apexpizzadelivery",
+    "storage_bucket": "apexpizzadelivery.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1059128280296:android:d2bb68cb46950e85c4355d",
+        "android_client_info": {
+          "package_name": "com.apexpizza"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1059128280296-b7jrslmv72hprjc70n2rh612djp3catb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6apBdCABbt7D6rD55vu8tonoDItjRBlc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1059128280296-b7jrslmv72hprjc70n2rh612djp3catb.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1059128280296-vsgfvk8scgib3b9d717df2jlknc0jbtp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.lavina-apex"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1059128280296:android:3ff067608dd783cdc4355d",
+        "android_client_info": {
+          "package_name": "com.bonito"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1059128280296-b7jrslmv72hprjc70n2rh612djp3catb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6apBdCABbt7D6rD55vu8tonoDItjRBlc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1059128280296-b7jrslmv72hprjc70n2rh612djp3catb.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1059128280296-vsgfvk8scgib3b9d717df2jlknc0jbtp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.lavina-apex"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1059128280296:android:96078effc1ff97f8c4355d",
+        "android_client_info": {
+          "package_name": "com.lavinauz.lfactura"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1059128280296-b7jrslmv72hprjc70n2rh612djp3catb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6apBdCABbt7D6rD55vu8tonoDItjRBlc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1059128280296-b7jrslmv72hprjc70n2rh612djp3catb.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1059128280296-vsgfvk8scgib3b9d717df2jlknc0jbtp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.lavina-apex"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1059128280296:android:8dd2813326ee074ec4355d",
+        "android_client_info": {
+          "package_name": "com.mob"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1059128280296-b7jrslmv72hprjc70n2rh612djp3catb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD6apBdCABbt7D6rD55vu8tonoDItjRBlc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1059128280296-b7jrslmv72hprjc70n2rh612djp3catb.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1059128280296-vsgfvk8scgib3b9d717df2jlknc0jbtp.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.lavina-apex"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

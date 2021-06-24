@@ -1,0 +1,4 @@
+POST  http://192.168.1.101/BonitoR1/hs/app/order
+Authorization: Basic bW9iaWxlMjoxMjM=
+
+{"Adress":"123","uidclient":"07093df6-3394-11eb-9ea0-502b73d5e1bd","dateorder":"20201218","plastik":false,"comment":"123","Products":[{"Номенклатура":"ОР 027  Штаны для мальчиков","цена":77000,"Описание":"","ИД":"0Н-00000264","Характеристика":"Т.СИНИЙ, 3-98","Цвет":"Т.СИНИЙ","Размер":"3-98","Количество":5,"amount":4}],"latitude":41.300499422435,"longitude":69.24080796539783}
