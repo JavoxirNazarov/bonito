@@ -10,6 +10,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import blockBackgraound from '../../assets/headerImg.png';
 import {useNavigation} from '@react-navigation/native';
 import {strings} from '../../Constants/localization';
+import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 export default function Header() {
   const navigation = useNavigation();
@@ -23,9 +24,9 @@ export default function Header() {
         <TouchableWithoutFeedback onPress={() => navigation.openDrawer()}>
           <LinearGradient colors={['#F2709C', '#FF9472']} style={styles.btn}>
             <View>
-              <View style={styles.blocK1}></View>
-              <View style={styles.blocK2}></View>
-              <View style={styles.blocK1}></View>
+              <View style={styles.blocK1} />
+              <View style={styles.blocK2} />
+              <View style={styles.blocK1} />
             </View>
           </LinearGradient>
         </TouchableWithoutFeedback>
@@ -86,7 +87,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   text: {
-    fontSize: 22,
+    fontSize: wp('5%'),
     color: '#FFFFFF',
     fontWeight: 'bold',
   },

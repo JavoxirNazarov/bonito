@@ -6,7 +6,7 @@ import SearchIcon from '../../assets/SearchIcon';
 import Category from '../../components/Pre/Category';
 import Header from '../../components/Pre/Header';
 import ProductList from '../../components/Pre/ProductList';
-import {makeGetRequest} from '../../dataManagment/srvConn';
+import {handleError, makeGetRequest} from '../../dataManagment/srvConn';
 import {randomColor} from '../../utils/helpers';
 
 export default function Pre({navigation}) {
@@ -20,11 +20,10 @@ export default function Pre({navigation}) {
     setFetchingCategory(true);
     makeGetRequest('getcategories')
       .then((res) => {
-        if (res) {
-          setCategories(res);
-          fetchProducts(res[0].Код);
-        }
+        setCategories(res);
+        fetchProducts(res[0].Код);
       })
+      .catch(handleError)
       .finally(() => setFetchingCategory(false));
   }, []);
 
@@ -41,11 +40,10 @@ export default function Pre({navigation}) {
     setFetChingProducts(true);
     makeGetRequest(`getproducts/${id}`)
       .then((res) => {
-        if (res) {
-          const withBackground = res.map((el) => ({...el, bgc: randomColor()}));
-          setProducts(withBackground);
-        }
+        const withBackground = res.map((el) => ({...el, bgc: randomColor()}));
+        setProducts(withBackground);
       })
+      .catch(handleError)
       .finally(() => setFetChingProducts(false));
   }
 
@@ -91,7 +89,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   inputContainer: {
-    backgroundColor: '#fff',
     width: '90%',
     borderRadius: 50,
     backgroundColor: '#FF957C',

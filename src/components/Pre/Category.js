@@ -44,11 +44,12 @@ export default function Category({
               <>
                 <View
                   style={
-                    index == active ? styles.itemIconActive : styles.itemIcon
+                    index === active ? styles.itemIconActive : styles.itemIcon
                   }>
-                  <Icon color={index == active ? '#fff' : '#FC5475'} />
+                  <Icon color={index === active ? '#fff' : '#FC5475'} />
                 </View>
-                <Text style={index == active ? styles.textActive : styles.text}>
+                <Text
+                  style={index === active ? styles.textActive : styles.text}>
                   {item.Наименование}
                 </Text>
               </>

@@ -7,13 +7,16 @@ import {
   Text,
   StyleSheet,
   View,
-  BackHandler,
 } from 'react-native';
 import {showMessage} from 'react-native-flash-message';
 import {useDispatch, useSelector} from 'react-redux';
 import Background from '../../assets/Basket/Background.png';
 import {strings} from '../../Constants/localization';
-import {makeGetRequest, PostReferal} from '../../dataManagment/srvConn';
+import {
+  handleError,
+  makeGetRequest,
+  sendData,
+} from '../../dataManagment/srvConn';
 import {setUser} from '../../redux/reducers/user-reducer';
 
 export default function Referal({navigation, route}) {
@@ -28,9 +31,9 @@ export default function Referal({navigation, route}) {
   }, []);
 
   function check() {
-    makeGetRequest('checkreferal/' + text).then((res) => {
-      if (res) setSearch(res);
-    });
+    makeGetRequest('checkreferal/' + text)
+      .then((res) => setSearch(res))
+      .catch(handleError);
   }
 
   function choose() {
@@ -47,8 +50,8 @@ export default function Referal({navigation, route}) {
       UID: user.uid,
     };
 
-    PostReferal(body).then((res) => {
-      if (res && res == 'спасибо') {
+    sendData('referal', body)
+      .then(() => {
         showMessage({
           message: 'Успешно!',
           position: 'center',
@@ -58,8 +61,8 @@ export default function Referal({navigation, route}) {
         dispatch(setUser({...user, Referal: text}));
 
         navigation.navigate('Root');
-      }
-    });
+      })
+      .then(handleError);
   }
   return (
     <ImageBackground

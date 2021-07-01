@@ -36,7 +36,7 @@
     "react-native-localize": "^2.0.1",
     "react-native-maps": "0.28.0",
     "react-native-reanimated": "^2.1.0",
-    "react-native-responsive-screen": "^1.4.1",
+    "react-native-responsive-screen": "^1.4.2",
     "react-native-safe-area-context": "^3.1.1",
     "react-native-scalable-image": "^1.1.0",
     "react-native-screens": "^2.9.0",

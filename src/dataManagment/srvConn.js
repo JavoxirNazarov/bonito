@@ -1,4 +1,5 @@
 import {Alert} from 'react-native';
+import {showMessage} from 'react-native-flash-message';
 import {host, token} from '../Constants/network';
 
 export async function makeGetRequest(params) {
@@ -10,17 +11,54 @@ export async function makeGetRequest(params) {
     });
 
     if (!response.ok) {
-      Alert.alert('Ошибка подключения ', response.status.toString());
-      return false;
+      if (response.status === 500) {
+        const text = await response.text();
+        throw Error(text);
+      }
+      throw Error(`Статус ${response.status}`);
     }
 
     const data = await response.json();
     return data;
   } catch (err) {
-    Alert.alert('Ошибка', err.message);
-    return false;
+    throw Error(err.message);
   }
 }
+
+export async function sendData(params, body) {
+  try {
+    const response = await fetch(`${host}/${params}`, {
+      method: 'POST',
+      headers: {
+        Authorization: `Basic ${token}`,
+        'Content-Type': 'multipart/form-data',
+      },
+      body: JSON.stringify(body),
+    });
+
+    if (!response.ok) {
+      if (response.status === 500) {
+        const text = await response.text();
+        throw Error(text);
+      }
+      throw Error(`Статус ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    throw Error(err.message);
+  }
+}
+
+export const handleError = (err) => {
+  showMessage({
+    description: err.message,
+    message: 'Ошибка!',
+    type: 'danger',
+  });
+};
+
 export async function checkClient(mobile) {
   try {
     const response = await fetch(`${host}/checkclient/${mobile}`, {
@@ -29,17 +67,18 @@ export async function checkClient(mobile) {
       },
     });
 
-    // console.log(`${host}/checkclient/${mobile}`);
     if (!response.ok) {
-      Alert.alert('Ошибка подключения ', response.status.toString());
-      return false;
+      if (response.status === 500) {
+        const text = await response.text();
+        throw Error(text);
+      }
+      throw Error(`Статус ${response.status}`);
     }
 
     const data = await response.text();
     return data;
   } catch (err) {
-    Alert.alert('Ошибка', err.message);
-    return false;
+    throw Error(err.message);
   }
 }
 
@@ -56,39 +95,18 @@ export async function sendMessage(body) {
         body: JSON.stringify(body),
       },
     );
-    if (!response.ok) {
-      Alert.alert('Ошибка подключения ', response.status.toString());
-      return false;
-    }
-
-    if (response.status == 200) return true;
-  } catch (err) {
-    Alert.alert('Ошибка', err.message);
-    return false;
-  }
-}
-
-export async function newClient(body) {
-  try {
-    const response = await fetch(`${host}/newclient`, {
-      method: 'POST',
-      headers: {
-        Authorization: `Basic ${token}`,
-        'Content-Type': 'multipart/form-data',
-      },
-      body: JSON.stringify(body),
-    });
 
     if (!response.ok) {
-      Alert.alert('Ошибка подключения ', response.status.toString());
-      return false;
+      throw Error(`Причинаой могут быть
+- Невалидный номер
+- Приложение не доступно для вашего региона 
+- Ошибка сервера
+      `);
     }
 
-    const data = await response.json();
-    return data;
+    if (response.status === 200) return true;
   } catch (err) {
-    Alert.alert('Ошибка', err.message);
-    return false;
+    throw Error(err.message);
   }
 }
 
@@ -96,8 +114,6 @@ export async function newClient(body) {
 
 export async function order(body) {
   try {
-    // console.log(`${host}/order`);
-    // console.log(JSON.stringify(body));
     const response = await fetch(`${host}/order`, {
       method: 'POST',
       headers: {
@@ -111,33 +127,7 @@ export async function order(body) {
       return false;
     }
 
-    if (response.status == 200) return true;
-  } catch (err) {
-    Alert.alert('Ошибка', err.message);
-    return false;
-  }
-}
-
-// =====================
-
-export async function PostReferal(body) {
-  try {
-    const response = await fetch(`${host}/referal`, {
-      method: 'POST',
-      headers: {
-        Authorization: `Basic ${token}`,
-        'Content-Type': 'multipart/form-data',
-      },
-      body: JSON.stringify(body),
-    });
-
-    if (!response.ok) {
-      Alert.alert('Ошибка подключения ', response.status.toString());
-      return false;
-    }
-
-    const data = await response.json();
-    return data;
+    if (response.status === 200) return true;
   } catch (err) {
     Alert.alert('Ошибка', err.message);
     return false;

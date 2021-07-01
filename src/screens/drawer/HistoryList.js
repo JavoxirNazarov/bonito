@@ -13,22 +13,20 @@ import {useSelector} from 'react-redux';
 import Background from '../../assets/Basket/Background.png';
 import Header from '../../components/Header';
 import {strings} from '../../Constants/localization';
-import {makeGetRequest} from '../../dataManagment/srvConn';
+import {handleError, makeGetRequest} from '../../dataManagment/srvConn';
 import {toCurrency} from '../../utils/helpers';
 
 export default function List({navigation}) {
   const {user} = useSelector((state) => state.userState);
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(true);
-  //
+
   useEffect(() => {
     makeGetRequest(`listorders/${user.uid}`)
-      .then((res) => {
-        if (res) setList(res);
-      })
+      .then((res) => setList(res))
+      .catch(handleError)
       .finally(() => setLoading(false));
-  }, []);
-  //
+  }, [user]);
 
   return (
     <>

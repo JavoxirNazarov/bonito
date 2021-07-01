@@ -13,6 +13,7 @@ import blockBackgraound from '../../assets/headerImg.png';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {clearAll} from '../../redux/reducers/products-reducer';
 import {strings} from '../../Constants/localization';
+import {widthPercentageToDP} from 'react-native-responsive-screen';
 
 export default function Header() {
   const dispatch = useDispatch();
@@ -76,7 +77,7 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   text: {
-    fontSize: 22,
+    fontSize: widthPercentageToDP('5%'),
     color: '#FFFFFF',
     fontWeight: 'bold',
   },

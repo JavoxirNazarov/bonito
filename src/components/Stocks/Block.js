@@ -8,7 +8,7 @@ import {strings} from '../../Constants/localization';
 export default function Block({index, promo, navigation}) {
   function giveColor() {
     if (index % 2 == 0) return ['#67E196', '#06AFAA'];
-    else return ['#FF6188', '#FFB199'];
+    return ['#FF6188', '#FFB199'];
   }
 
   return (
@@ -37,8 +37,8 @@ export default function Block({index, promo, navigation}) {
         <Text style={styles.subTitle}>{promo.текст}</Text>
         <View style={styles.wraper}>
           <View>
-            <Text style={styles.currentSum}>250 000 {strings.SUMM}</Text>
-            <Text style={styles.prevSum}>300 000 {strings.SUMM}</Text>
+            {/* <Text style={styles.currentSum}>250 000 {strings.SUMM}</Text>
+            <Text style={styles.prevSum}>300 000 {strings.SUMM}</Text> */}
           </View>
           <TouchableOpacity
             onPress={() =>

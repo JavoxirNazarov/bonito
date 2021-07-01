@@ -48,7 +48,7 @@ export default function List({navigation}) {
     if (!adress) {
       setModalVisible(false);
       setErrorText(
-        strings.getLanguage() == 'ru' ? 'напишите адресс' : 'Adressni yozing',
+        strings.getLanguage() === 'ru' ? 'напишите адресс' : 'Adressni yozing',
       );
       return;
     }
@@ -71,7 +71,6 @@ export default function List({navigation}) {
           dispatch(clearAll());
         } else {
           setErrorText('произошла ошибка');
-          showError(true);
         }
       })
       .finally(() => {

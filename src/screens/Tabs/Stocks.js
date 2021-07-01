@@ -20,9 +20,9 @@ export default function Stocks({navigation}) {
       imageStyle={{resizeMode: 'cover'}}
       style={styles.container}
       source={Background}>
-      <ScrollView>
-        <Header title={strings.PROMOS.HEADER} navigation={navigation} />
+      <Header title={strings.PROMOS.HEADER} navigation={navigation} />
 
+      <ScrollView>
         <View style={styles.innerContainer}>
           {stocks.length ? (
             stocks.map((el, i) => (

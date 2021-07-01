@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
 import {StyleSheet, Text, TextInput, View} from 'react-native';
+import {showMessage} from 'react-native-flash-message';
 import {useDispatch} from 'react-redux';
 import {strings} from '../../Constants/localization';
-import {makeGetRequest} from '../../dataManagment/srvConn';
+import {handleError, makeGetRequest} from '../../dataManagment/srvConn';
 import {setUser} from '../../redux/reducers/user-reducer';
 import LightBtn from './LightBtn';
 
@@ -10,16 +11,19 @@ export default function Step1({generated, setStep, masked, exist}) {
   const dispatch = useDispatch();
   const [input, setInput] = useState('');
   function check() {
-    if (input == generated) {
+    if (input === generated) {
       if (exist) {
-        makeGetRequest(`getclient/${exist}`).then((res) => {
-          if (res) {
-            dispatch(setUser({uid: exist, ...res}));
-          }
-        });
+        makeGetRequest(`getclient/${exist}`)
+          .then((res) => dispatch(setUser({uid: exist, ...res})))
+          .catch(handleError);
       } else {
         setStep(2);
       }
+    } else {
+      showMessage({
+        message: 'Не правильно',
+        type: 'danger',
+      });
     }
   }
 
@@ -30,9 +34,9 @@ export default function Step1({generated, setStep, masked, exist}) {
         <TextInput
           style={styles.input}
           placeholderTextColor="#9B9B9B"
-          placeholder="XXXXX"
+          placeholder="XXXXXX"
           keyboardType="numeric"
-          value={input}
+          defaultValue={input}
           onChangeText={setInput}
         />
         <Text style={styles.subtitle}>

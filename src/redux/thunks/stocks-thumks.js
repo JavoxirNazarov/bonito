@@ -1,4 +1,4 @@
-import {makeGetRequest} from '../../dataManagment/srvConn';
+import {handleError, makeGetRequest} from '../../dataManagment/srvConn';
 import {getStocks} from '../reducers/stocks-reducer';
 
 export function getStocksThunk() {
@@ -15,8 +15,8 @@ export function getStocksThunk() {
       (DD > 9 ? '' : '0') + DD,
     ].join('');
 
-    makeGetRequest(`promo/${senDate}`).then((res) => {
-      if (res) dispatch(getStocks(res));
-    });
+    makeGetRequest(`promo/${senDate}`)
+      .then((res) => dispatch(getStocks(res)))
+      .catch(handleError);
   };
 }

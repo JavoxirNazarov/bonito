@@ -9,6 +9,7 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import blockBackgraound from '../assets/headerImg.png';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 export default function Header({navigation, title}) {
   return (
@@ -74,7 +75,7 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   text: {
-    fontSize: 20,
+    fontSize: wp('5%'),
     color: '#FFFFFF',
     fontWeight: 'bold',
   },

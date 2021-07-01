@@ -4,11 +4,9 @@ import {StyleSheet, View} from 'react-native';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import MainIcon from '../../assets/Drawer/Main';
 import MapIcon from '../../assets/Drawer/Map';
-import NewsIcon from '../../assets/Drawer/News';
 import CustomDrawer from '../../components/CustomDrawer';
 import Home from '../drawer/Home';
 import Map from '../drawer/Map';
-import News from '../drawer/News';
 import Abaut from '../drawer/Abaut';
 import {useDispatch, useSelector} from 'react-redux';
 import {getStocksThunk} from '../../redux/thunks/stocks-thumks';
@@ -56,17 +54,7 @@ export default function Root() {
         name={strings.DWAWER.MAIN}
         component={Home}
       />
-      <Drawer.Screen
-        options={{
-          drawerIcon: () => (
-            <View style={styles.icon}>
-              <NewsIcon />
-            </View>
-          ),
-        }}
-        name={strings.DWAWER.NEWS}
-        component={News}
-      />
+
       <Drawer.Screen
         name={strings.DWAWER.MAP}
         component={Map}

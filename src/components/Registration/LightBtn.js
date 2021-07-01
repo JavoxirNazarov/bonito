@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   ActivityIndicator,
 } from 'react-native';
+import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
 
 export default function LightBtn({title, onPress, containerStyle, loading}) {
   return (
@@ -41,7 +42,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#32C3A9',
-    fontSize: 16,
+    fontSize: wp('3%'),
     fontWeight: 'bold',
     textAlign: 'center',
   },

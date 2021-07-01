@@ -7,7 +7,7 @@ import Category from '../../components/Catalog/Category';
 import Header from '../../components/Catalog/Header';
 import ProductList from '../../components/Catalog/ProductList';
 import {strings} from '../../Constants/localization';
-import {makeGetRequest} from '../../dataManagment/srvConn';
+import {handleError, makeGetRequest} from '../../dataManagment/srvConn';
 import {randomColor} from '../../utils/helpers';
 
 export default function Catalog({navigation}) {
@@ -21,11 +21,10 @@ export default function Catalog({navigation}) {
     setFetchingCategory(true);
     makeGetRequest('getcategories')
       .then((res) => {
-        if (res) {
-          setCategories(res);
-          fetchProducts('new');
-        }
+        setCategories(res);
+        fetchProducts('new');
       })
+      .catch(handleError)
       .finally(() => setFetchingCategory(false));
   }, []);
 
@@ -33,8 +32,7 @@ export default function Catalog({navigation}) {
     const searchBy = products.filter((el) =>
       el.Наименование.toLowerCase().includes(search.toLowerCase()),
     );
-    if (searchBy.length) return searchBy;
-    else return products;
+    return searchBy.length ? searchBy : products;
   }, [search, products]);
 
   function fetchProducts(id) {
@@ -43,26 +41,24 @@ export default function Catalog({navigation}) {
     if (id == 'new') {
       makeGetRequest(`topsales`)
         .then((res) => {
-          if (res) {
-            const withBackground = res.map((el) => ({
-              ...el,
-              bgc: randomColor(),
-            }));
-            setProducts(withBackground);
-          }
+          const withBackground = res.map((el) => ({
+            ...el,
+            bgc: randomColor(),
+          }));
+          setProducts(withBackground);
         })
+        .catch(handleError)
         .finally(() => setFetChingProducts(false));
     } else {
       makeGetRequest(`getproducts/${id}`)
         .then((res) => {
-          if (res) {
-            const withBackground = res.map((el) => ({
-              ...el,
-              bgc: randomColor(),
-            }));
-            setProducts(withBackground);
-          }
+          const withBackground = res.map((el) => ({
+            ...el,
+            bgc: randomColor(),
+          }));
+          setProducts(withBackground);
         })
+        .catch(handleError)
         .finally(() => setFetChingProducts(false));
     }
   }
@@ -109,7 +105,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   inputContainer: {
-    backgroundColor: '#fff',
     width: '90%',
     borderRadius: 50,
     backgroundColor: '#FF957C',

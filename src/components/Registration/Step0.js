@@ -1,6 +1,10 @@
 import React, {useContext, useState} from 'react';
 import {StyleSheet, Text, TextInput, View} from 'react-native';
-import {checkClient, sendMessage} from '../../dataManagment/srvConn';
+import {
+  checkClient,
+  handleError,
+  sendMessage,
+} from '../../dataManagment/srvConn';
 import LightBtn from './LightBtn';
 import UZ from '../../assets/Drawer/UZ';
 import RU from '../../assets/Drawer/RU';
@@ -25,26 +29,25 @@ export default function Step0({
     setLoading(true);
     checkClient(mobile)
       .then((response) => {
-        if (response) {
-          if (response !== 'No') setExist(response);
-          else setExist('');
-          let numbers = '';
-          for (let i = 0; i <= 5; i++) {
-            numbers += Math.floor(Math.random() * 10);
-          }
-          if (mobile == '998000000000') numbers = '123456';
-          sendMessage({
-            text: 'Ваш код подтверждения для Bonito Kids:' + numbers,
-            number: mobile,
-            from: 'bonito_kids',
-          }).then((res) => {
-            if (res) {
-              setGenerated(numbers);
-              setStep(1);
-            }
-          });
+        if (response !== 'No') setExist(response);
+        else setExist('');
+        let numbers = '';
+        for (let i = 0; i <= 5; i++) {
+          numbers += Math.floor(Math.random() * 10);
         }
+        if (mobile == '998000000000') numbers = '123456';
+        sendMessage({
+          text: 'Ваш код подтверждения для Bonito Kids:' + numbers,
+          number: mobile,
+          from: 'bonito_kids',
+        })
+          .then(() => {
+            setGenerated(numbers);
+            setStep(1);
+          })
+          .catch(handleError);
       })
+      .catch(handleError)
       .finally(() => setLoading(false));
   }
 
@@ -57,32 +60,16 @@ export default function Step0({
     <>
       <Text style={styles.title}>{strings.STEP0.TITLE}</Text>
 
-      <View
-        style={{
-          marginVertical: 17,
-          flexDirection: 'row',
-          width: '100%',
-          justifyContent: 'space-around',
-        }}>
+      <View style={styles.localizationWraper}>
         <TouchableOpacity
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            width: '40%',
-            justifyContent: 'space-around',
-          }}
+          style={styles.localizationItem}
           onPress={() => lacalization.setAppLanguage('uz')}>
           <UZ />
           <Text>Uzbek</Text>
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={{
-            flexDirection: 'row',
-            alignItems: 'center',
-            width: '40%',
-            justifyContent: 'space-around',
-          }}
+          style={styles.localizationItem}
           onPress={() => lacalization.setAppLanguage('ru')}>
           <RU />
           <Text>Русский</Text>
@@ -93,7 +80,7 @@ export default function Step0({
         <View style={styles.input}>
           <TextInput
             style={styles.hidden}
-            value={mobile}
+            defaultValue={mobile}
             onChangeText={checkNumber}
             keyboardType="numeric"
           />
@@ -159,11 +146,22 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     color: '#fff',
   },
-
   wraper: {
     marginTop: 5,
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  localizationWraper: {
+    marginVertical: 17,
+    flexDirection: 'row',
+    width: '100%',
+    justifyContent: 'space-around',
+  },
+  localizationItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '40%',
+    justifyContent: 'space-around',
   },
 });

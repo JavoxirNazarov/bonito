@@ -16,7 +16,7 @@ import Background from '../../assets/Basket/Background.png';
 import Photo from '../../components/Product/Photo';
 import {strings} from '../../Constants/localization';
 import {host} from '../../Constants/network';
-import {makeGetRequest} from '../../dataManagment/srvConn';
+import {handleError, makeGetRequest} from '../../dataManagment/srvConn';
 import {addProductThunk} from '../../redux/thunks/product-tkunks';
 import {isEmpty, toCurrency} from '../../utils/helpers';
 
@@ -34,28 +34,32 @@ export default function Product({navigation, route}) {
   const [pickedPhoto, setPickedPhoto] = useState('');
 
   useEffect(() => {
-    makeGetRequest(`balanceproducts/${route.params.Код}`).then((res) => {
-      if (res) setProduct(res);
-    });
+    makeGetRequest(`balanceproducts/${route.params.Код}`)
+      .then((res) => setProduct(res))
+      .catch(handleError);
   }, []);
 
   useEffect(() => {
+    let clear = true;
     if (color && size) {
       const search = product.Характеристики.find(
-        (el) => el.Цвет == color && el.Размер == size,
+        (el) => el.Цвет === color && el.Размер === size,
       );
       if (search) {
         const params = `price?idproduct=${route.params.Код}&uidcharactristic=${search.УИДХарактеристика}`;
-        makeGetRequest(params).then((res) => {
-          if (res && !isEmpty(res)) {
-            setItem({...res, Количество: search.Количество});
-            setCanPay(true);
-          } else {
-            setItem({});
-            setCanPay(false);
-          }
-        });
-      } else {
+
+        makeGetRequest(params)
+          .then((res) => {
+            if (!isEmpty(res)) {
+              setItem({...res, Количество: search.Количество});
+              setCanPay(true);
+              clear = false;
+            }
+          })
+          .catch(handleError);
+      }
+
+      if (clear) {
         setItem({});
         setCanPay(false);
       }

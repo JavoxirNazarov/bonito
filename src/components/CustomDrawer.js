@@ -24,6 +24,7 @@ import {clearUser} from '../redux/reducers/user-reducer';
 import UZ from '../assets/Drawer/UZ';
 import RU from '../assets/Drawer/RU';
 import {LocalizationContext} from '../utils/LocalizationContext';
+import NewsIcon from '../assets/Drawer/News';
 
 export default function CustomDrawer(props) {
   const dispatch = useDispatch();
@@ -50,8 +51,9 @@ export default function CustomDrawer(props) {
           <View style={styles.wraper}>
             <Logo style={{marginVertical: 25}} />
 
-            {stocks.length ? (
+            {!!stocks.length && (
               <ImageBackground
+                resizeMode="cover"
                 imageStyle={styles.image}
                 source={{uri: `data:image/png;base64,${stocks[0].картинка}`}}
                 style={styles.newsBlock}>
@@ -62,22 +64,34 @@ export default function CustomDrawer(props) {
                 <LinearGradient
                   colors={['#FF9472', '#F2709C']}
                   style={styles.textBlock}>
-                  <View style={{width: '50%'}}>
-                    <Text style={styles.sum}>250 000 сум</Text>
-                    <Text style={styles.prevSum}>250 000 сум</Text>
-                  </View>
-                  <View style={{width: '50%'}}>
+                  <View>
                     <Text style={styles.title}>{stocks[0].Заголовок}</Text>
+                    <Text style={styles.title}>{stocks[0].текст}</Text>
                   </View>
                 </LinearGradient>
 
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity
+                  onPress={() => props.navigation.navigate('Stocks')}
+                  style={styles.button}>
                   <Text style={styles.btnText}>Смотреть все акции</Text>
                 </TouchableOpacity>
               </ImageBackground>
-            ) : null}
+            )}
           </View>
+
           <DrawerItemList {...props} />
+
+          <DrawerItem
+            {...props}
+            icon={() => (
+              <View style={styles.icon}>
+                <NewsIcon />
+              </View>
+            )}
+            style={{width: '80%'}}
+            label={strings.DWAWER.STOCKS}
+            onPress={() => props.navigation.navigate('Stocks')}
+          />
 
           <DrawerItem
             {...props}
@@ -121,21 +135,9 @@ export default function CustomDrawer(props) {
             onPress={logOut}
           />
 
-          <View
-            style={{
-              marginVertical: 17,
-              flexDirection: 'row',
-              justifyContent: 'space-around',
-              alignItems: 'center',
-              width: '80%',
-            }}>
+          <View style={styles.localizationContaner}>
             <TouchableOpacity
-              style={{
-                width: '42%',
-                alignItems: 'center',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              }}
+              style={styles.localizationItem}
               onPress={() => {
                 lacalization.setAppLanguage('uz');
                 props.navigation.closeDrawer();
@@ -145,12 +147,7 @@ export default function CustomDrawer(props) {
             </TouchableOpacity>
 
             <TouchableOpacity
-              style={{
-                width: '42%',
-                alignItems: 'center',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-              }}
+              style={styles.localizationItem}
               onPress={() => {
                 lacalization.setAppLanguage('ru');
                 props.navigation.closeDrawer();
@@ -210,6 +207,7 @@ const styles = StyleSheet.create({
     position: 'relative',
     alignItems: 'center',
     marginBottom: 20,
+    borderRadius: 11,
   },
   image: {
     width: '100%',
@@ -261,5 +259,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     marginTop: 20,
+  },
+  localizationContaner: {
+    marginVertical: 17,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    width: '80%',
+  },
+  localizationItem: {
+    width: '42%',
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
   },
 });

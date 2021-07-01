@@ -12,7 +12,7 @@ import Background from '../../assets/Basket/Background.png';
 import Header from '../../components/Header';
 import Photo from '../../components/List/Photo';
 import {strings} from '../../Constants/localization';
-import {makeGetRequest} from '../../dataManagment/srvConn';
+import {handleError, makeGetRequest} from '../../dataManagment/srvConn';
 import {toCurrency} from '../../utils/helpers';
 
 function totalCost(products) {
@@ -30,10 +30,10 @@ export default function HistoryProduct({navigation, route}) {
   //
 
   useEffect(() => {
-    makeGetRequest(`infoorder/${id}`).then((res) => {
-      if (res) setProducts(res);
-    });
-  }, []);
+    makeGetRequest(`infoorder/${id}`)
+      .then((res) => setProducts(res))
+      .catch(handleError);
+  }, [id]);
 
   return (
     <>

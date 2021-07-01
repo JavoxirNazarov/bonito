@@ -15,7 +15,7 @@ import Step3 from '../../components/Registration/Step3';
 import Step4 from '../../components/Registration/Step4';
 import Step5 from '../../components/Registration/Step5';
 import {strings} from '../../Constants/localization';
-import {newClient} from '../../dataManagment/srvConn';
+import {handleError} from '../../dataManagment/srvConn';
 import {setUser} from '../../redux/reducers/user-reducer';
 import {sendDate} from '../../utils/helpers';
 
@@ -63,12 +63,9 @@ export default function Registration({navigation}) {
           }),
       };
 
-      newClient(newUser)
-        .then((uid) => {
-          if (uid) {
-            dispatch(setUser({uid, ...newUser}));
-          }
-        })
+      sendDate('newclient', newUser)
+        .then((uid) => dispatch(setUser({uid, ...newUser})))
+        .catch(handleError)
         .finally(() => setLoading(false));
     }
   }
@@ -95,7 +92,6 @@ export default function Registration({navigation}) {
             generated={generated}
             masked={masked}
             setStep={setStep}
-            navigation={navigation}
           />
         );
       case 2:

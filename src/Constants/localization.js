@@ -41,7 +41,7 @@ export const strings = new LocalizedStrings({
     },
     DWAWER: {
       MAIN: 'Главная',
-      NEWS: 'Новости',
+      STOCKS: 'Акции',
       MAP: 'Карта',
       ABAUT: 'О нас',
       CATALOG: 'Каталог',
@@ -89,9 +89,7 @@ export const strings = new LocalizedStrings({
       NAVIGATE: 'Перейти',
       BACK: 'Назад',
     },
-    NEWS: {
-      NONEWS: 'У нас пока нет новостей',
-    },
+
     MAPS: {
       CHILONZOR:
         'Чиланзарский р-н, 9-квартал, ул. Катартал, дом №2. Между кафе "Райхон" и ТЦ "Атлас". Время работы: с 9:00 до 21:00',
@@ -174,7 +172,7 @@ export const strings = new LocalizedStrings({
     },
     DWAWER: {
       MAIN: 'Asosiy',
-      NEWS: 'Yangiliklar',
+      STOCKS: 'Aksiyalar',
       MAP: 'Karta',
       ABAUT: 'Biz haqimizda',
       CATALOG: 'Katalog',
@@ -222,9 +220,7 @@ export const strings = new LocalizedStrings({
       NAVIGATE: "Ko'rish",
       BACK: 'Ortga',
     },
-    NEWS: {
-      NONEWS: "Sizda yangiliklar yo'q",
-    },
+
     MAPS: {
       CHILONZOR:
         'Chilonzor tumani, 9-kvartal, Qatartol ko\'chasi, 2-dom. "Rayxon" kafe va "Atlas" savdo markazi orasida. ish vaqti: 09:00-21:00',
