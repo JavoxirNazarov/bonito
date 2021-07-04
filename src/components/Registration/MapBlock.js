@@ -12,7 +12,7 @@ export default function MapBlock({place, onPress}) {
         />
       </View>
       <View style={styles.blockText}>
-        <Text style={styles.title}>{place.name}</Text>
+        <Text style={styles.title}>{place.name()}</Text>
       </View>
     </TouchableOpacity>
   );

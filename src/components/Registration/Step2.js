@@ -92,6 +92,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontWeight: '600',
     marginVertical: 15,
+    textAlign: 'center',
   },
   input: {
     width: '100%',
@@ -106,7 +107,6 @@ const styles = StyleSheet.create({
   datePicker: {
     width: '100%',
     height: 64,
-    borderRadius: 4,
     backgroundColor: '#F0F8F6',
     flexDirection: 'row',
     alignItems: 'center',

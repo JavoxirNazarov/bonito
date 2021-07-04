@@ -61,6 +61,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontWeight: '600',
     marginVertical: 20,
+    textAlign: 'center',
   },
   listItem: {
     flexDirection: 'row',

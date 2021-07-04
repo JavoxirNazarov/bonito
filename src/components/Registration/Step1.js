@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontWeight: '600',
     marginVertical: 15,
+    textAlign: 'center',
   },
   input: {
     width: '100%',

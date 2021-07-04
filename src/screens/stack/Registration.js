@@ -15,7 +15,7 @@ import Step3 from '../../components/Registration/Step3';
 import Step4 from '../../components/Registration/Step4';
 import Step5 from '../../components/Registration/Step5';
 import {strings} from '../../Constants/localization';
-import {handleError} from '../../dataManagment/srvConn';
+import {handleError, sendData} from '../../dataManagment/srvConn';
 import {setUser} from '../../redux/reducers/user-reducer';
 import {sendDate} from '../../utils/helpers';
 
@@ -45,29 +45,26 @@ export default function Registration({navigation}) {
     if (!name.trim()) {
       Alert.alert(strings.REG_ERROR.NAME);
       setStep(2);
+      return;
     }
-    {
-      setLoading(true);
-      const newUser = {
-        Name: name,
-        Birth: sendDate(date),
-        Phone: mobile,
-        IDbranch: '',
-        Children: childs
-          .filter((el) => el.name)
-          .map((child) => {
-            return {
-              nameChild: child.name,
-              birthChild: sendDate(child.date),
-            };
-          }),
-      };
+    setLoading(true);
+    const newUser = {
+      Name: name,
+      Birth: sendDate(date),
+      Phone: mobile,
+      IDbranch: '',
+      Children: childs
+        .filter((el) => el.name)
+        .map((child) => ({
+          nameChild: child.name,
+          birthChild: sendDate(child.date),
+        })),
+    };
 
-      sendDate('newclient', newUser)
-        .then((uid) => dispatch(setUser({uid, ...newUser})))
-        .catch(handleError)
-        .finally(() => setLoading(false));
-    }
+    sendData('newclient', newUser)
+      .then((uid) => dispatch(setUser({uid, ...newUser})))
+      .catch(handleError)
+      .finally(() => setLoading(false));
   }
 
   function body() {

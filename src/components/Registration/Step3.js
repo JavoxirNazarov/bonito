@@ -82,19 +82,7 @@ export default function Step3({childs, setChilds, setStep}) {
             </View>
 
             {Platform.OS === 'ios' ? (
-              <View
-                style={{
-                  width: '100%',
-                  height: 64,
-                  backgroundColor: '#efeff0',
-                  borderRadius: 4,
-                  justifyContent: 'space-between',
-                  fontSize: 14,
-                  marginBottom: 5,
-                  paddingLeft: 10,
-                  alignItems: 'center',
-                  flexDirection: 'row',
-                }}>
+              <View style={styles.IOSDateContainer}>
                 <Text>{strings.STEP3.DATE}</Text>
                 <DateTimePicker
                   locale="ru"
@@ -157,7 +145,9 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontWeight: '600',
     marginVertical: 20,
+    textAlign: 'center',
   },
+
   childBlock: {
     width: '100%',
     height: 240,
@@ -185,6 +175,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     fontSize: 14,
     paddingLeft: 10,
+  },
+  IOSDateContainer: {
+    width: '100%',
+    height: 64,
+    backgroundColor: '#efeff0',
+    borderRadius: 4,
+    justifyContent: 'space-between',
+    fontSize: 14,
+    marginBottom: 5,
+    paddingLeft: 10,
+    alignItems: 'center',
+    flexDirection: 'row',
   },
   datePicker: {
     width: '100%',
