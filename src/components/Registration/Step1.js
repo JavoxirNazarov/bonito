@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
 import {StyleSheet, Text, TextInput, View} from 'react-native';
 import {showMessage} from 'react-native-flash-message';
+import {widthPercentageToDP} from 'react-native-responsive-screen';
 import {useDispatch} from 'react-redux';
 import {strings} from '../../Constants/localization';
 import {handleError, makeGetRequest} from '../../dataManagment/srvConn';
 import {setUser} from '../../redux/reducers/user-reducer';
 import LightBtn from './LightBtn';
+import Title from './Title';
 
 export default function Step1({generated, setStep, masked, exist}) {
   const dispatch = useDispatch();
@@ -29,7 +31,7 @@ export default function Step1({generated, setStep, masked, exist}) {
 
   return (
     <>
-      <Text style={styles.title}>{strings.STEP1.TITLE}</Text>
+      <Title text={strings.STEP1.TITLE} />
       <View style={{width: '100%'}}>
         <TextInput
           style={styles.input}
@@ -55,16 +57,9 @@ export default function Step1({generated, setStep, masked, exist}) {
 }
 
 const styles = StyleSheet.create({
-  title: {
-    fontSize: 25,
-    color: '#FFFFFF',
-    fontWeight: '600',
-    marginVertical: 15,
-    textAlign: 'center',
-  },
   input: {
     width: '100%',
-    height: 64,
+    height: 60,
     backgroundColor: '#FFFFFF',
     borderRadius: 4,
     paddingLeft: 20,
@@ -73,7 +68,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   subtitle: {
-    fontSize: 18,
+    fontSize: widthPercentageToDP(5),
     alignSelf: 'flex-start',
     color: '#fff',
   },

@@ -10,7 +10,10 @@ import LinearGradient from 'react-native-linear-gradient';
 import blockBackgraound from '../../assets/headerImg.png';
 import {useNavigation} from '@react-navigation/native';
 import {strings} from '../../Constants/localization';
-import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
+import {
+  widthPercentageToDP as wp,
+  heightPercentageToDP,
+} from 'react-native-responsive-screen';
 
 export default function Header() {
   const navigation = useNavigation();
@@ -40,9 +43,7 @@ export default function Header() {
 const styles = StyleSheet.create({
   gradientContainer: {
     width: '100%',
-    height: 110,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
+    height: heightPercentageToDP(14),
     overflow: 'hidden',
     position: 'absolute',
     top: 0,
@@ -52,13 +53,13 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
     flexDirection: 'row',
-    height: 100,
+    height: '100%',
     position: 'relative',
     justifyContent: 'center',
   },
   btn: {
-    width: 42,
-    height: 42,
+    width: 40,
+    height: 40,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 50,
@@ -87,7 +88,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   text: {
-    fontSize: wp('5%'),
+    fontSize: wp(5),
     color: '#FFFFFF',
     fontWeight: 'bold',
   },

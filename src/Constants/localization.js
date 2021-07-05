@@ -12,7 +12,7 @@ export const strings = new LocalizedStrings({
       INPUT_TEXT: 'Введите свой номер телефона',
     },
     STEP1: {
-      TITLE: 'код',
+      TITLE: 'СМС',
       PREV: 'Назад',
       NEXT: 'Далее',
       INPUT_TEXT: 'Мы отправили код на номер',
@@ -65,7 +65,7 @@ export const strings = new LocalizedStrings({
     LIST: {
       HEADER: 'Моя Корзина',
       EMPTY: 'У вас пока нету продуктов в корзине',
-      TOTAL: 'Общее количество:',
+      TOTAL: 'Общее количество',
       SUBMIT: 'Оформить заказ',
     },
     PROMOS: {
@@ -141,7 +141,7 @@ export const strings = new LocalizedStrings({
       INPUT_TEXT: 'Telefon nomeringizni kiriting',
     },
     STEP1: {
-      TITLE: 'Kod',
+      TITLE: 'SMS',
       PREV: 'Ortga',
       NEXT: 'Keyingi',
       INPUT_TEXT: 'SMS yuborildi, telefon:',

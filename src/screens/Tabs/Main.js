@@ -1,6 +1,13 @@
 import React from 'react';
-import {ImageBackground, ScrollView, StyleSheet, Text} from 'react-native';
+import {
+  ImageBackground,
+  ScrollView,
+  View,
+  StyleSheet,
+  Text,
+} from 'react-native';
 import Barcode from 'react-native-barcode-builder';
+import {widthPercentageToDP} from 'react-native-responsive-screen';
 import {useSelector} from 'react-redux';
 import backgraund from '../../assets/backgraund.png';
 import blockBackgraound from '../../assets/blockBackgraound.png';
@@ -15,14 +22,15 @@ export default function Main({navigation}) {
       imageStyle={{resizeMode: 'stretch'}}
       source={backgraund}
       style={styles.image}>
-      <ScrollView contentContainerStyle={{width: '100%', alignItems: 'center'}}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.scrollContainer}>
         <Header navigation={navigation} />
 
         <ImageBackground source={blockBackgraound} style={styles.block}>
           <Text style={styles.title}>{strings.MAIN.BALANCE}</Text>
           <Text style={styles.subTitle}>
             <Text style={styles.number}>{balance.Balance || 0} </Text>
-
             {strings.MAIN.BALL}
           </Text>
         </ImageBackground>
@@ -33,14 +41,12 @@ export default function Main({navigation}) {
             {strings.MAIN.BALL}
           </Text>
         </ImageBackground>
-        <ImageBackground
-          source={blockBackgraound}
-          style={{...styles.block, height: 140}}>
+        <ImageBackground source={blockBackgraound} style={styles.block}>
           {balance.Code ? (
             <>
               <Barcode
                 value={balance.Code}
-                height={80}
+                height={70}
                 width={2}
                 background="transparent"
                 lineColor="black"
@@ -50,7 +56,7 @@ export default function Main({navigation}) {
           ) : (
             <Barcode
               value="no code"
-              height={80}
+              height={70}
               width={2}
               background="transparent"
               lineColor="black"
@@ -64,25 +70,29 @@ export default function Main({navigation}) {
 
 const styles = StyleSheet.create({
   image: {
-    paddingHorizontal: 25,
-    paddingVertical: '10%',
     flex: 1,
+  },
+  scrollContainer: {
+    width: '100%',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingBottom: 90,
   },
   block: {
     width: '100%',
-    height: 100,
+    paddingVertical: widthPercentageToDP(4),
     backgroundColor: '#fff',
-    borderRadius: 10,
+    borderRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
     marginVertical: 6,
   },
   title: {
-    fontSize: 17,
+    fontSize: widthPercentageToDP(4),
     fontWeight: 'bold',
     color: '#665F92',
   },
-  subTitle: {color: '#FF5B61', fontSize: 15, marginTop: 6},
+  subTitle: {color: '#FF5B61', fontSize: widthPercentageToDP(3), marginTop: 6},
   number: {
     fontSize: 20,
     fontWeight: 'bold',

@@ -16,6 +16,7 @@ import {host, token} from '../../Constants/network';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialIcons';
 import StockIcon from '../../assets/Drawer/StockIcon';
 import {strings} from '../../Constants/localization';
+const {width} = Dimensions.get('window');
 
 export default function ProductList({fetchingProducts, products, navigation}) {
   if (fetchingProducts)
@@ -24,8 +25,6 @@ export default function ProductList({fetchingProducts, products, navigation}) {
         <ActivityIndicator size="large" color="blue" style={{marginTop: 50}} />
       </View>
     );
-
-  const {width} = Dimensions.get('window');
 
   const ViewTypes = {
     FULL: 0,
@@ -38,7 +37,9 @@ export default function ProductList({fetchingProducts, products, navigation}) {
   });
   const layoutProvider = new LayoutProvider(
     (index) => {
-      if (index % 2 === 0) {
+      if (width < 350) {
+        return ViewTypes.FULL;
+      } else if (index % 2 === 0) {
         return ViewTypes.HALF_RIGHT;
       } else if (index % 2 === 1) {
         return ViewTypes.HALF_LEFT;
@@ -75,12 +76,7 @@ export default function ProductList({fetchingProducts, products, navigation}) {
           layoutProvider={layoutProvider}
           dataProvider={dataProvider.cloneWithRows(products)}
           rowRenderer={(_, item) => (
-            <View
-              style={{
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center',
-              }}>
+            <View style={styles.flexWrap}>
               <TouchableOpacity
                 activeOpacity={0.9}
                 onPress={() =>
@@ -107,10 +103,7 @@ export default function ProductList({fetchingProducts, products, navigation}) {
 
                 <View style={styles.photo}>
                   <Image
-                    style={{
-                      height: '100%',
-                      width: '100%',
-                    }}
+                    style={styles.imgSize}
                     // onError={({nativeEvent: {error}}) => console.log(error)}
                     source={{
                       uri: `${host}/preview/${item.Код}`,
@@ -129,7 +122,7 @@ export default function ProductList({fetchingProducts, products, navigation}) {
                 <ImageBackground
                   source={catalogItemBackground}
                   resizeMode="cover"
-                  imageStyle={{width: '100%', height: '100%'}}
+                  imageStyle={styles.imgSize}
                   style={{
                     ...styles.body,
                     backgroundColor: item.bgc,
@@ -163,6 +156,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginTop: 50,
   },
+  flexWrap: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   productContainer: {
     width: '85%',
     height: 192,
@@ -180,6 +178,10 @@ const styles = StyleSheet.create({
     left: 0,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  imgSize: {
+    width: '100%',
+    height: '100%',
   },
   defphoto: {
     width: '100%',
@@ -208,14 +210,14 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: 12,
   },
-  sub: {color: '#FFFFFF', fontSize: 10},
   btn: {
+    alignSelf: 'flex-end',
     width: 74,
     height: 19,
     backgroundColor: '#FFFFFF',
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: 17,
+    borderRadius: 12,
   },
   btnText: {
     fontSize: 10,

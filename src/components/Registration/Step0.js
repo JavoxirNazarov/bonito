@@ -12,6 +12,8 @@ import NumberFormat from 'react-number-format';
 import {TouchableOpacity} from 'react-native';
 import {LocalizationContext} from '../../utils/LocalizationContext';
 import {strings} from '../../Constants/localization';
+import {widthPercentageToDP} from 'react-native-responsive-screen';
+import Title from './Title';
 
 export default function Step0({
   mobile,
@@ -58,7 +60,7 @@ export default function Step0({
 
   return (
     <>
-      <Text style={styles.title}>{strings.STEP0.TITLE}</Text>
+      <Title text={strings.STEP0.TITLE} />
 
       <View style={styles.localizationWraper}>
         <TouchableOpacity
@@ -117,16 +119,9 @@ export default function Step0({
 }
 
 const styles = StyleSheet.create({
-  title: {
-    fontSize: 25,
-    color: '#FFFFFF',
-    fontWeight: '600',
-    marginVertical: 15,
-    textAlign: 'center',
-  },
   input: {
     width: '100%',
-    height: 64,
+    height: 60,
     backgroundColor: '#FFFFFF',
     borderRadius: 4,
     justifyContent: 'center',
@@ -143,7 +138,7 @@ const styles = StyleSheet.create({
     letterSpacing: 5,
   },
   subtitle: {
-    fontSize: 18,
+    fontSize: widthPercentageToDP(5),
     alignSelf: 'flex-start',
     color: '#fff',
   },

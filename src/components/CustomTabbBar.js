@@ -8,7 +8,7 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-export default function CustomTabbBat({state, descriptors, navigation}) {
+export default function CustomTabbBar({state, descriptors, navigation}) {
   const focusedOptions = descriptors[state.routes[state.index].key].options;
 
   if (focusedOptions.tabBarVisible === false) {
@@ -23,12 +23,12 @@ export default function CustomTabbBat({state, descriptors, navigation}) {
       style={styles.container}>
       {state.routes.map((route, index) => {
         const {options} = descriptors[route.key];
-        const label =
-          options.tabBarLabel !== undefined
-            ? options.tabBarLabel
-            : options.title !== undefined
-            ? options.title
-            : route.name;
+        // const label =
+        //   options.tabBarLabel !== undefined
+        //     ? options.tabBarLabel
+        //     : options.title !== undefined
+        //     ? options.title
+        //     : route.name;
 
         const isFocused = state.index === index;
 
@@ -44,13 +44,6 @@ export default function CustomTabbBat({state, descriptors, navigation}) {
           }
         };
 
-        const onLongPress = () => {
-          navigation.emit({
-            type: 'tabLongPress',
-            target: route.key,
-          });
-        };
-
         return (
           <TouchableOpacity
             key={index}
@@ -59,7 +52,6 @@ export default function CustomTabbBat({state, descriptors, navigation}) {
             accessibilityLabel={options.tabBarAccessibilityLabel}
             testID={options.tabBarTestID}
             onPress={onPress}
-            onLongPress={onLongPress}
             style={{
               ...styles.tab,
               paddingRight: route.name == 'Catalog' ? 20 : 0,
@@ -71,33 +63,14 @@ export default function CustomTabbBat({state, descriptors, navigation}) {
       })}
 
       <TouchableOpacity
-        style={{
-          position: 'absolute',
-          zIndex: 1100,
-          top: -15,
-          elevation: 2,
-          shadowColor: '#000',
-          shadowOffset: {
-            width: 0,
-            height: 4,
-          },
-          shadowOpacity: 0.18,
-          shadowRadius: 1.0,
-        }}
+        style={styles.gradientBtn}
         onPress={() => navigation.navigate('Main')}>
         <LinearGradient
           style={styles.centerBtn}
           start={{x: 0.0, y: 0.5}}
           end={{x: 0.5, y: 1.0}}
           colors={['#FF9472', '#F2709C']}>
-          <View
-            style={{
-              borderRadius: 50,
-              borderWidth: 1,
-              borderColor: '#fff',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
+          <View style={styles.gradientBtnIconCircle}>
             <MaterialCommunityIcons
               name="currency-usd"
               size={20}
@@ -113,7 +86,7 @@ export default function CustomTabbBat({state, descriptors, navigation}) {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    height: 84,
+    height: 70,
     zIndex: 100,
     justifyContent: 'center',
     backgroundColor: 'transparent',
@@ -125,6 +98,26 @@ const styles = StyleSheet.create({
     right: 0,
     padding: 0,
     overflow: 'visible',
+  },
+  gradientBtn: {
+    position: 'absolute',
+    zIndex: 1100,
+    top: -20,
+    elevation: 2,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 4,
+    },
+    shadowOpacity: 0.18,
+    shadowRadius: 1.0,
+  },
+  gradientBtnIconCircle: {
+    borderRadius: 50,
+    borderWidth: 1,
+    borderColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   tab: {
     paddingTop: 10,

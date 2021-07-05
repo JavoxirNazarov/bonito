@@ -2,21 +2,21 @@ import React from 'react';
 import {StyleSheet} from 'react-native';
 import {Text, ScrollView, ImageBackground} from 'react-native';
 import Background from '../../assets/Basket/Background.png';
-import Header from '../../components/Header';
+import Header from '../../components/List/Header';
 import {strings} from '../../Constants/localization';
 
-export default function About({navigation}) {
+export default function About() {
   return (
     <ImageBackground
       imageStyle={{resizeMode: 'cover'}}
       source={Background}
       style={styles.continer}>
-      <Header title={strings.DWAWER.ABAUT} navigation={navigation} />
+      <Header text={strings.DWAWER.ABAUT} />
 
       <ScrollView
         style={{flex: 1}}
         contentContainerStyle={styles.innerContainer}>
-        <Text style={{fontSize: 18, marginBottom: 20}}>
+        <Text style={{fontSize: 18, marginBottom: 20, padding: 10}}>
           {strings.getLanguage() == 'ru' ? (
             <>
               Наша компания является одним из лидеров в текстильной
@@ -105,11 +105,9 @@ const styles = StyleSheet.create({
   continer: {
     flex: 1,
     position: 'relative',
-    paddingTop: 120,
   },
   innerContainer: {
     alignItems: 'center',
-    padding: 15,
     justifyContent: 'center',
   },
 });

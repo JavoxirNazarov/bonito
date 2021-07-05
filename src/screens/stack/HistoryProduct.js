@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import {Divider} from 'react-native-elements';
 import Background from '../../assets/Basket/Background.png';
-import Header from '../../components/Header';
+import Header from '../../components/List/Header';
 import Photo from '../../components/List/Photo';
 import {strings} from '../../Constants/localization';
 import {handleError, makeGetRequest} from '../../dataManagment/srvConn';
@@ -42,7 +42,7 @@ export default function HistoryProduct({navigation, route}) {
         source={Background}
         style={styles.continer}>
         <ScrollView>
-          <Header title={strings.HISTORY.HEADER} navigation={navigation} />
+          <Header text={strings.HISTORY.HEADER} />
           <View style={styles.innerContainer}>
             {products.length ? (
               <>
@@ -91,6 +91,7 @@ export default function HistoryProduct({navigation, route}) {
                     </View>
                   </View>
                 ))}
+
                 <View style={styles.totalCost}>
                   <Text style={styles.text}>{strings.LIST.TOTAL}:</Text>
                   <Text style={styles.cost}>
@@ -118,9 +119,7 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     flex: 1,
-    paddingTop: 110,
     alignItems: 'center',
-    marginBottom: 70,
   },
   totalCost: {
     marginVertical: 10,
@@ -133,24 +132,6 @@ const styles = StyleSheet.create({
     color: '#38344E',
     fontSize: 14,
   },
-  cost: {
-    fontWeight: 'bold',
-    color: '#2B2C47',
-    fontSize: 18,
-  },
-  orderBtnWraper: {
-    width: '90%',
-    height: 56,
-    marginVertical: 20,
-  },
-  orderBtn: {
-    width: '100%',
-    height: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#FF0078',
-    borderRadius: 50,
-  },
   orderText: {
     fontSize: 15,
     fontWeight: 'bold',
@@ -159,7 +140,7 @@ const styles = StyleSheet.create({
   block: {
     overflow: 'hidden',
     width: '90%',
-    minHeight: 186,
+    height: 200,
     borderRadius: 8,
     backgroundColor: '#FFFFFF',
     shadowOffset: {
@@ -171,8 +152,8 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   blockImage: {
-    width: '37%',
-    height: 200,
+    width: '40%',
+    height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -192,7 +173,7 @@ const styles = StyleSheet.create({
   typeWraper: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 5,
+    marginVertical: 2,
   },
   select: {
     color: '#9B9B9B',
@@ -204,11 +185,5 @@ const styles = StyleSheet.create({
     color: '#242424',
     fontSize: 14,
   },
-  amount: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-
-  amountNumber: {color: '#222222', fontSize: 14, marginHorizontal: 18},
-  cost: {color: '#FF5C7B', fontSize: 15},
+  cost: {color: '#FF5C7B', fontSize: 15, marginTop: 4},
 });

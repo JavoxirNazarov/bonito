@@ -36,12 +36,11 @@ const styles = StyleSheet.create({
   },
   blockText: {
     flex: 1,
-    marginHorizontal: 11,
-    marginVertical: 12,
+    paddingHorizontal: 11,
+    paddingTop: 10,
   },
   title: {
     color: '#6E798C',
-    fontSize: 16,
-    marginBottom: 6,
+    fontSize: 14,
   },
 });

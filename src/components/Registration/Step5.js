@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {StyleSheet, Text, TouchableOpacity, View, FlatList} from 'react-native';
 import {CheckBox} from 'react-native-elements';
 import {strings} from '../../Constants/localization';
 import LightBtn from './LightBtn';
+import Title from './Title';
 
 export default function Step5({setStep, saveUser, loading}) {
   const [knowFrom, setKnowFrom] = useState([
@@ -25,55 +26,55 @@ export default function Step5({setStep, saveUser, loading}) {
 
   return (
     <>
-      <Text style={styles.title}>{strings.STEP5.TITLE}</Text>
+      <Title text={strings.STEP5.TITLE} />
 
-      {knowFrom.map((el, i) => (
-        <TouchableOpacity
-          onPress={() => changeWay(i)}
-          style={styles.listItem}
-          key={i}>
-          <Text style={{fontSize: 19}}>{i + 1}</Text>
-          <Text style={{fontSize: 19}}>{el.way}</Text>
-          <CheckBox
-            onPress={() => changeWay(i)}
-            checked={el.selected}
-            checkedColor="#2AA952"
-            uncheckedColor="transparent"
-          />
-        </TouchableOpacity>
-      ))}
-
-      <View style={styles.btnWraper}>
-        <LightBtn title={strings.STEP1.PREV} onPress={() => setStep(4)} />
-        <LightBtn
-          title={strings.STEP1.NEXT}
-          onPress={saveUser}
-          loading={loading}
-        />
-      </View>
+      <FlatList
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{width: '100%'}}
+        style={{width: '100%'}}
+        data={knowFrom}
+        renderItem={({item, index}) => (
+          <TouchableOpacity
+            onPress={() => changeWay(index)}
+            style={styles.listItem}>
+            <Text style={{fontSize: 18}}>{index + 1}</Text>
+            <Text style={{fontSize: 18}}>{item.way}</Text>
+            <CheckBox
+              onPress={() => changeWay(index)}
+              checked={item.selected}
+              checkedColor="#2AA952"
+            />
+          </TouchableOpacity>
+        )}
+        keyExtractor={(_, index) => index.toString()}
+        ListFooterComponent={() => (
+          <View style={styles.btnWraper}>
+            <LightBtn title={strings.STEP1.PREV} onPress={() => setStep(4)} />
+            <LightBtn
+              title={strings.STEP1.NEXT}
+              onPress={saveUser}
+              loading={loading}
+            />
+          </View>
+        )}
+      />
     </>
   );
 }
 
 const styles = StyleSheet.create({
-  title: {
-    fontSize: 25,
-    color: '#FFFFFF',
-    fontWeight: '600',
-    marginVertical: 20,
-    textAlign: 'center',
-  },
   listItem: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     width: '100%',
-    paddingHorizontal: 15,
+    paddingHorizontal: 10,
+    marginVertical: 10,
     backgroundColor: '#fff',
     borderRadius: 8,
   },
   btnWraper: {
-    marginTop: 35,
+    marginTop: 15,
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',

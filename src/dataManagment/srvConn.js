@@ -85,11 +85,11 @@ export async function checkClient(mobile) {
 export async function sendMessage(body) {
   try {
     const response = await fetch(
-      `https://l-factura.uz/factura/hs/common/sendsms`,
+      'https://l-factura.uz/factura/hs/common/sendsms',
       {
         method: 'POST',
         headers: {
-          Authorization: `Basic Ym9uaXRvU01TOkJvbml0bzI2OTY=`,
+          Authorization: 'Basic Ym9uaXRvU01TOkJvbml0bzI2OTY=',
           'Content-Type': 'multipart/form-data',
         },
         body: JSON.stringify(body),

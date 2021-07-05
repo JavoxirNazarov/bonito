@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import {useSelector} from 'react-redux';
 import Background from '../../assets/Basket/Background.png';
-import Header from '../../components/Header';
+import Header from '../../components/List/Header';
 import Block from '../../components/Stocks/Block';
 import {strings} from '../../Constants/localization';
 
@@ -20,9 +20,9 @@ export default function Stocks({navigation}) {
       imageStyle={{resizeMode: 'cover'}}
       style={styles.container}
       source={Background}>
-      <Header title={strings.PROMOS.HEADER} navigation={navigation} />
-
       <ScrollView>
+        <Header text={strings.PROMOS.HEADER} />
+
         <View style={styles.innerContainer}>
           {stocks.length ? (
             stocks.map((el, i) => (

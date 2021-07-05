@@ -12,17 +12,19 @@ import LinearGradient from 'react-native-linear-gradient';
 import blockBackgraound from '../../assets/headerImg.png';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import {clearAll} from '../../redux/reducers/products-reducer';
-import {strings} from '../../Constants/localization';
-import {widthPercentageToDP} from 'react-native-responsive-screen';
+import {
+  heightPercentageToDP,
+  widthPercentageToDP,
+} from 'react-native-responsive-screen';
 
-export default function Header() {
+export default function Header({text, canClear = false}) {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
   return (
     <View style={styles.gradientContainer}>
       <ImageBackground
-        resizeMode="stretch"
+        imageStyle={{resizeMode: 'stretch'}}
         source={blockBackgraound}
         style={styles.block}>
         <TouchableWithoutFeedback onPress={() => navigation.goBack()}>
@@ -31,13 +33,17 @@ export default function Header() {
           </LinearGradient>
         </TouchableWithoutFeedback>
 
-        <Text style={styles.text}>{strings.LIST.HEADER}</Text>
+        <Text style={styles.text}>{text}</Text>
 
-        <TouchableWithoutFeedback onPress={() => dispatch(clearAll())}>
-          <LinearGradient colors={['#64D2FD', '#60CFF6']} style={styles.btn}>
-            <MaterialCommunityIcons name="delete" size={25} color="#fff" />
-          </LinearGradient>
-        </TouchableWithoutFeedback>
+        {canClear ? (
+          <TouchableWithoutFeedback onPress={() => dispatch(clearAll())}>
+            <LinearGradient colors={['#64D2FD', '#60CFF6']} style={styles.btn}>
+              <MaterialCommunityIcons name="delete" size={25} color="#fff" />
+            </LinearGradient>
+          </TouchableWithoutFeedback>
+        ) : (
+          <View style={{width: 30}} />
+        )}
       </ImageBackground>
     </View>
   );
@@ -46,24 +52,19 @@ export default function Header() {
 const styles = StyleSheet.create({
   gradientContainer: {
     width: '100%',
-    height: 110,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
+    height: heightPercentageToDP(17),
     overflow: 'hidden',
-    position: 'absolute',
-    top: 0,
-    zIndex: 2,
   },
   block: {
     width: '100%',
     alignItems: 'center',
     flexDirection: 'row',
-    height: 100,
+    height: '100%',
     justifyContent: 'space-around',
   },
   btn: {
-    width: 42,
-    height: 42,
+    width: 40,
+    height: 40,
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 50,
@@ -77,7 +78,7 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   text: {
-    fontSize: widthPercentageToDP('5%'),
+    fontSize: widthPercentageToDP(5),
     color: '#FFFFFF',
     fontWeight: 'bold',
   },

@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: '#32C3A9',
-    fontSize: wp('3%'),
+    fontSize: wp(3),
     fontWeight: 'bold',
     textAlign: 'center',
   },

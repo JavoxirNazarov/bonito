@@ -4,6 +4,7 @@ import {View, Text, StyleSheet, TouchableWithoutFeedback} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {strings} from '../../Constants/localization';
 import Logo from '../../assets/Logo';
+import {widthPercentageToDP} from 'react-native-responsive-screen';
 
 export default function Header({navigation}) {
   const {user} = useSelector((state) => state.userState);
@@ -20,9 +21,9 @@ export default function Header({navigation}) {
             colors={['#F2709C', '#FF9472']}
             style={styles.btn}>
             <View>
-              <View style={styles.blocK1}></View>
-              <View style={styles.blocK2}></View>
-              <View style={styles.blocK1}></View>
+              <View style={styles.blocK1} />
+              <View style={styles.blocK2} />
+              <View style={styles.blocK1} />
             </View>
           </LinearGradient>
         </TouchableWithoutFeedback>
@@ -39,15 +40,14 @@ export default function Header({navigation}) {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    height: 70,
-    marginBottom: 10,
+    marginTop: widthPercentageToDP(5),
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
   },
   btn: {
-    width: 42,
-    height: 42,
+    width: widthPercentageToDP(11),
+    height: widthPercentageToDP(11),
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: 5,
@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.18,
     shadowRadius: 1.0,
-    elevation: 1,
+    elevation: 2,
   },
   touch: {
     width: '100%',
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
   },
   text: {
-    fontSize: 20,
+    fontSize: widthPercentageToDP(5),
     marginVertical: 10,
     color: '#FFFFFF',
     fontWeight: 'bold',

@@ -13,6 +13,7 @@ import {Icon} from 'react-native-elements';
 import {strings} from '../../Constants/localization';
 import {dateParser} from '../../utils/helpers';
 import LightBtn from './LightBtn';
+import Title from './Title';
 
 export default function Step3({childs, setChilds, setStep}) {
   function addChild() {
@@ -63,63 +64,66 @@ export default function Step3({childs, setChilds, setStep}) {
 
   return (
     <>
-      <Text style={styles.title}>{strings.STEP3.TITLE}</Text>
+      <Title text={strings.STEP3.TITLE} />
 
       <ScrollView
         style={{width: '100%'}}
-        contentContainerStyle={{width: '100%', minHeight: '80%'}}
+        contentContainerStyle={{width: '100%'}}
         showsVerticalScrollIndicator={false}>
-        {childs.map((child, i) => (
-          <View style={styles.childBlock} key={i}>
-            <View style={styles.inputBlock}>
-              <TextInput
-                style={styles.input}
-                placeholder={strings.STEP3.NAME}
-                placeholderTextColor="#2D2D2D"
-                value={child.name}
-                onChangeText={(text) => changeName(text, i)}
-              />
-            </View>
-
-            {Platform.OS === 'ios' ? (
-              <View style={styles.IOSDateContainer}>
-                <Text>{strings.STEP3.DATE}</Text>
-                <DateTimePicker
-                  locale="ru"
-                  value={child.date}
-                  mode="date"
-                  is24Hour={true}
-                  display="default"
-                  onChange={(_, selectedDate) => {
-                    changeDate(child.date, selectedDate, i);
-                  }}
+        <>
+          {childs.map((child, i) => (
+            <View style={styles.childBlock} key={i}>
+              <View style={styles.inputBlock}>
+                <TextInput
+                  style={styles.input}
+                  placeholder={strings.STEP3.NAME}
+                  placeholderTextColor="#2D2D2D"
+                  value={child.name}
+                  onChangeText={(text) => changeName(text, i)}
                 />
               </View>
-            ) : (
-              <>
-                {child.datePicker && (
+
+              {Platform.OS === 'ios' ? (
+                <View style={styles.IOSDateContainer}>
+                  <Text>{strings.STEP3.DATE}</Text>
                   <DateTimePicker
                     locale="ru"
-                    testID="dateTimePicker"
                     value={child.date}
                     mode="date"
-                    display="spinner"
+                    is24Hour={true}
+                    display="default"
                     onChange={(_, selectedDate) => {
                       changeDate(child.date, selectedDate, i);
                     }}
                   />
-                )}
-                <View style={styles.inputBlock}>
-                  <Text style={styles.inputLabel}>{strings.STEP3.DATE}</Text>
-                  <TouchableOpacity
-                    onPress={() => openPicker(i)}
-                    style={styles.input}>
-                    <Text>{dateParser(child.date)}</Text>
-                  </TouchableOpacity>
                 </View>
-              </>
-            )}
-
+              ) : (
+                <>
+                  {child.datePicker && (
+                    <DateTimePicker
+                      locale="ru"
+                      testID="dateTimePicker"
+                      value={child.date}
+                      mode="date"
+                      display="spinner"
+                      onChange={(_, selectedDate) => {
+                        changeDate(child.date, selectedDate, i);
+                      }}
+                    />
+                  )}
+                  <View style={styles.inputBlock}>
+                    <Text style={styles.inputLabel}>{strings.STEP3.DATE}</Text>
+                    <TouchableOpacity
+                      onPress={() => openPicker(i)}
+                      style={styles.input}>
+                      <Text>{dateParser(child.date)}</Text>
+                    </TouchableOpacity>
+                  </View>
+                </>
+              )}
+            </View>
+          ))}
+          <View style={{alignItems: 'center'}}>
             <Icon
               name="account-multiple-plus"
               type="material-community"
@@ -129,25 +133,17 @@ export default function Step3({childs, setChilds, setStep}) {
               onPress={addChild}
             />
           </View>
-        ))}
+          <View style={styles.wraper}>
+            <LightBtn title={strings.STEP1.PREV} onPress={() => setStep(2)} />
+            <LightBtn title={strings.STEP1.NEXT} onPress={() => setStep(4)} />
+          </View>
+        </>
       </ScrollView>
-      <View style={styles.wraper}>
-        <LightBtn title={strings.STEP1.PREV} onPress={() => setStep(2)} />
-        <LightBtn title={strings.STEP1.NEXT} onPress={() => setStep(4)} />
-      </View>
     </>
   );
 }
 
 const styles = StyleSheet.create({
-  title: {
-    fontSize: 25,
-    color: '#FFFFFF',
-    fontWeight: '600',
-    marginVertical: 20,
-    textAlign: 'center',
-  },
-
   childBlock: {
     width: '100%',
     height: 240,
@@ -178,7 +174,7 @@ const styles = StyleSheet.create({
   },
   IOSDateContainer: {
     width: '100%',
-    height: 64,
+    height: 60,
     backgroundColor: '#efeff0',
     borderRadius: 4,
     justifyContent: 'space-between',

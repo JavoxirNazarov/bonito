@@ -26,8 +26,8 @@ export default function Header({navigation, title}) {
 
         <Text style={styles.text}>{title}</Text>
 
-        <View></View>
-        <View></View>
+        <View />
+        <View />
       </ImageBackground>
     </View>
   );

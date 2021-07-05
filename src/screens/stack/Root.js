@@ -14,6 +14,7 @@ import {getBalanceThunk} from '../../redux/thunks/balance-thunks';
 import {strings} from '../../Constants/localization';
 import OrdersIcon from '../../assets/Drawer/List';
 import HistoryList from '../drawer/HistoryList';
+import {widthPercentageToDP} from 'react-native-responsive-screen';
 
 const Drawer = createDrawerNavigator();
 
@@ -36,11 +37,14 @@ export default function Root() {
         width: '70%',
       }}
       drawerContentOptions={{
-        labelStyle: {color: '#fff', fontSize: 17},
+        labelStyle: {
+          color: '#fff',
+        },
         activeBackgroundColor: 'transparent',
         contentContainerStyle: {alignItems: 'center'},
         itemStyle: {
           width: '80%',
+          marginVertical: 0,
         },
       }}>
       <Drawer.Screen
@@ -115,7 +119,5 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.18,
     shadowRadius: 1.0,
     elevation: 2,
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 });

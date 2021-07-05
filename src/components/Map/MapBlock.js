@@ -8,6 +8,7 @@ import {
   Linking,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import {widthPercentageToDP} from 'react-native-responsive-screen';
 import {strings} from '../../Constants/localization';
 
 export default function MapBlock({place}) {
@@ -23,15 +24,13 @@ export default function MapBlock({place}) {
       <View style={styles.blockText}>
         <Text style={styles.title}>{place.name()}</Text>
 
-        <TouchableOpacity
-          style={styles.orderBtnWraper}
-          onPress={() => Linking.openURL(place.location)}>
-          <LinearGradient
-            colors={['#FF9472', '#F2709C']}
-            style={styles.orderBtn}>
+        <LinearGradient colors={['#FF9472', '#F2709C']} style={styles.orderBtn}>
+          <TouchableOpacity
+            style={styles.orderBtnWraper}
+            onPress={() => Linking.openURL(place.location)}>
             <Text style={styles.orderText}>{strings.MAPS.LOCATION}</Text>
-          </LinearGradient>
-        </TouchableOpacity>
+          </TouchableOpacity>
+        </LinearGradient>
       </View>
     </View>
   );
@@ -56,38 +55,33 @@ const styles = StyleSheet.create({
     elevation: 3,
   },
   img: {
-    width: '30%',
+    width: '35%',
     height: '100%',
     overflow: 'hidden',
   },
   blockText: {
     flex: 1,
     marginHorizontal: 11,
-    marginVertical: 10,
+    marginVertical: 8,
   },
   title: {
     color: '#6E798C',
-    fontSize: 15,
+    fontSize: widthPercentageToDP(3.9),
     marginBottom: 6,
     lineHeight: 22,
   },
-  orderBtnWraper: {
-    width: '60%',
-    height: 30,
-    marginTop: 'auto',
-  },
   orderBtn: {
-    width: '100%',
-    height: '100%',
+    paddingVertical: 2,
+    width: 140,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#FF0078',
     borderRadius: 50,
+    marginTop: 'auto',
   },
   orderText: {
     fontSize: 11,
     fontWeight: 'bold',
     color: '#fff',
-    fontWeight: '600',
   },
 });

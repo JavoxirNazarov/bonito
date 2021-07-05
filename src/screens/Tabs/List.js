@@ -8,6 +8,7 @@ import {
   View,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import {heightPercentageToDP} from 'react-native-responsive-screen';
 import {useDispatch, useSelector} from 'react-redux';
 import Background from '../../assets/Basket/Background.png';
 import Alert from '../../components/Alert';
@@ -104,7 +105,8 @@ export default function List({navigation}) {
         source={Background}
         style={styles.continer}>
         <ScrollView>
-          <Header />
+          <Header text={strings.LIST.HEADER} canClear />
+
           <View style={styles.innerContainer}>
             {products.length ? (
               products.map((el, i) => <Block key={i} index={i} product={el} />)
@@ -128,7 +130,7 @@ export default function List({navigation}) {
               onPress={() => {
                 if (calculateCost(products) < 150000) {
                   setErrorText(
-                    strings.getLanguage() == 'ru'
+                    strings.getLanguage() === 'ru'
                       ? 'Минимальный заказ от 150000 сум'
                       : 'Minimal zakaz 150000 sum',
                   );
@@ -155,9 +157,8 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     flex: 1,
-    paddingTop: 110,
     alignItems: 'center',
-    marginBottom: 70,
+    marginBottom: 80,
   },
   totalCost: {
     marginVertical: 10,
@@ -178,7 +179,7 @@ const styles = StyleSheet.create({
   orderBtnWraper: {
     width: '90%',
     height: 56,
-    marginVertical: 20,
+    marginVertical: heightPercentageToDP(3),
   },
   orderBtn: {
     width: '100%',

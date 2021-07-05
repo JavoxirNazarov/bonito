@@ -11,7 +11,7 @@ import {
 import {Card} from 'react-native-elements';
 import {useSelector} from 'react-redux';
 import Background from '../../assets/Basket/Background.png';
-import Header from '../../components/Header';
+import Header from '../../components/List/Header';
 import {strings} from '../../Constants/localization';
 import {handleError, makeGetRequest} from '../../dataManagment/srvConn';
 import {toCurrency} from '../../utils/helpers';
@@ -35,7 +35,7 @@ export default function List({navigation}) {
         source={Background}
         style={styles.continer}>
         <ScrollView>
-          <Header title={strings.HISTORY.HEADER} navigation={navigation} />
+          <Header text={strings.HISTORY.HEADER} />
           <View style={styles.innerContainer}>
             {list.length ? (
               list.map((el, i) => (
@@ -88,8 +88,7 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     flex: 1,
-    paddingTop: 110,
-    marginBottom: 70,
+    marginBottom: 30,
   },
   row: {
     flex: 1,

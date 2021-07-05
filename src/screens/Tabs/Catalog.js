@@ -2,6 +2,7 @@ import React, {useEffect, useMemo, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {TextInput} from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
+import {heightPercentageToDP} from 'react-native-responsive-screen';
 import SearchIcon from '../../assets/SearchIcon';
 import Category from '../../components/Catalog/Category';
 import Header from '../../components/Catalog/Header';
@@ -38,7 +39,7 @@ export default function Catalog({navigation}) {
   function fetchProducts(id) {
     setSearch('');
     setFetChingProducts(true);
-    if (id == 'new') {
+    if (id === 'new') {
       makeGetRequest(`topsales`)
         .then((res) => {
           const withBackground = res.map((el) => ({
@@ -100,7 +101,8 @@ const styles = StyleSheet.create({
   contanier: {
     flex: 1,
     alignItems: 'center',
-    paddingVertical: 80,
+    paddingTop: heightPercentageToDP(12),
+    paddingBottom: 55,
     position: 'relative',
     backgroundColor: '#fff',
   },

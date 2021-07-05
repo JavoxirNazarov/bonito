@@ -3,7 +3,7 @@ import {
   DrawerItem,
   DrawerItemList,
 } from '@react-navigation/drawer';
-import React, {useContext} from 'react';
+import React, {useCallback, useContext} from 'react';
 import {
   ImageBackground,
   StyleSheet,
@@ -25,6 +25,7 @@ import UZ from '../assets/Drawer/UZ';
 import RU from '../assets/Drawer/RU';
 import {LocalizationContext} from '../utils/LocalizationContext';
 import NewsIcon from '../assets/Drawer/News';
+import {widthPercentageToDP} from 'react-native-responsive-screen';
 
 export default function CustomDrawer(props) {
   const dispatch = useDispatch();
@@ -33,23 +34,48 @@ export default function CustomDrawer(props) {
   const {user} = useSelector((state) => state.userState);
   const lacalization = useContext(LocalizationContext);
 
-  function logOut() {
+  const logOut = useCallback(() => {
     dispatch(clearUser());
     props.navigation.closeDrawer();
-  }
+  }, []);
 
-  async function shareLink() {
+  const shareLink = useCallback(async () => {
     await Share.share({
       message: 'http://srv.lavina.uz/bonito/?referal=' + balance.Code,
     });
-  }
+  }, [balance]);
+
+  const customItems = [
+    {
+      Icon: <NewsIcon />,
+      label: strings.DWAWER.STOCKS,
+      onPress: () => props.navigation.navigate('Stocks'),
+    },
+    {
+      Icon: <CatalogIcon />,
+      label: strings.DWAWER.CATALOG,
+      onPress: () => props.navigation.navigate('Catalog'),
+    },
+    {
+      Icon: <MaterialCommunityIcons name="share" size={18} color="#0C6452" />,
+      label: strings.DWAWER.SHARE,
+      onPress: shareLink,
+    },
+    {
+      Icon: <MaterialCommunityIcons name="logout" size={18} color="#0C6452" />,
+      label: strings.DWAWER.EXIT,
+      onPress: logOut,
+    },
+  ];
 
   return (
     <LinearGradient colors={['#67E196', '#06AFAA']} style={styles.gradient}>
       <ImageBackground style={{flex: 1}} source={overlay}>
-        <DrawerContentScrollView {...props}>
+        <DrawerContentScrollView
+          {...props}
+          showsVerticalScrollIndicator={false}>
           <View style={styles.wraper}>
-            <Logo style={{marginVertical: 25}} />
+            <Logo style={{marginVertical: widthPercentageToDP(5)}} />
 
             {!!stocks.length && (
               <ImageBackground
@@ -81,59 +107,16 @@ export default function CustomDrawer(props) {
 
           <DrawerItemList {...props} />
 
-          <DrawerItem
-            {...props}
-            icon={() => (
-              <View style={styles.icon}>
-                <NewsIcon />
-              </View>
-            )}
-            style={{width: '80%'}}
-            label={strings.DWAWER.STOCKS}
-            onPress={() => props.navigation.navigate('Stocks')}
-          />
-
-          <DrawerItem
-            {...props}
-            icon={() => (
-              <View style={styles.icon}>
-                <CatalogIcon />
-              </View>
-            )}
-            style={{width: '80%'}}
-            label={strings.DWAWER.CATALOG}
-            onPress={() => props.navigation.navigate('Catalog')}
-          />
-          <DrawerItem
-            {...props}
-            style={{width: '80%'}}
-            icon={() => (
-              <View style={styles.icon}>
-                <MaterialCommunityIcons
-                  name="share"
-                  size={18}
-                  color="#0C6452"
-                />
-              </View>
-            )}
-            label={strings.DWAWER.SHARE}
-            onPress={shareLink}
-          />
-          <DrawerItem
-            {...props}
-            style={{width: '80%'}}
-            icon={() => (
-              <View style={styles.icon}>
-                <MaterialCommunityIcons
-                  name="logout"
-                  size={18}
-                  color="#0C6452"
-                />
-              </View>
-            )}
-            label={strings.DWAWER.EXIT}
-            onPress={logOut}
-          />
+          {customItems.map((el, i) => (
+            <DrawerItem
+              key={i}
+              {...props}
+              icon={() => <View style={styles.icon}>{el.Icon}</View>}
+              style={{width: '80%'}}
+              label={el.label}
+              onPress={el.onPress}
+            />
+          ))}
 
           <View style={styles.localizationContaner}>
             <TouchableOpacity
@@ -143,7 +126,7 @@ export default function CustomDrawer(props) {
                 props.navigation.closeDrawer();
               }}>
               <UZ />
-              <Text>Uzbek</Text>
+              <Text style={styles.localizationItemText}>Uzbek</Text>
             </TouchableOpacity>
 
             <TouchableOpacity
@@ -153,7 +136,7 @@ export default function CustomDrawer(props) {
                 props.navigation.closeDrawer();
               }}>
               <RU />
-              <Text>Русский</Text>
+              <Text style={styles.localizationItemText}>Русский</Text>
             </TouchableOpacity>
           </View>
 
@@ -272,5 +255,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
+  },
+  localizationItemText: {
+    fontSize: widthPercentageToDP(3.5),
   },
 });
