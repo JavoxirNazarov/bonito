@@ -52,17 +52,10 @@ export default function OrderModal({
       onRequestClose={() => setModalVisible(false)}>
       <ImageBackground source={Background} resizeMode="cover" style={{flex: 1}}>
         <KeyboardAvoidingView
-          behavior={Platform.OS == 'ios' ? 'padding' : 'height'}
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
           style={{flex: 1}}>
           <ScrollView contentContainerStyle={styles.container}>
-            <View
-              style={{
-                ...StyleSheet.absoluteFillObject,
-                height: 300,
-                width,
-                marginBottom: 20,
-                position: 'relative',
-              }}>
+            <View style={styles.mapContainer}>
               <MapView
                 provider={PROVIDER_GOOGLE}
                 showsUserLocation={true}
@@ -159,6 +152,13 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     paddingHorizontal: 10,
   },
+  mapContainer: {
+    ...StyleSheet.absoluteFillObject,
+    height: 300,
+    width,
+    marginBottom: 20,
+    position: 'relative',
+  },
   input: {
     width: '100%',
     height: hp('10%'),
@@ -174,7 +174,6 @@ const styles = StyleSheet.create({
   datePicker: {
     width: '100%',
     height: hp('10%'),
-    borderRadius: 4,
     backgroundColor: '#F0F8F6',
     flexDirection: 'row',
     alignItems: 'center',

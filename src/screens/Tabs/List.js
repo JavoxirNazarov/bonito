@@ -18,7 +18,7 @@ import OrderModal from '../../components/List/OrderModal';
 import {strings} from '../../Constants/localization';
 import {order} from '../../dataManagment/srvConn';
 import {clearAll} from '../../redux/reducers/products-reducer';
-import {calculateCost, toCurrency} from '../../utils/helpers';
+import {calculateCost, isEmpty, toCurrency} from '../../utils/helpers';
 
 function totalCost(products) {
   let result = 0;
@@ -46,41 +46,42 @@ export default function List({navigation}) {
   const [plastik, setPlastik] = useState(false);
 
   function makeOrder() {
-    if (!adress) {
+    if (!!adress.trim() || !isEmpty(marked)) {
+      const body = {
+        Adress: adress,
+        uidclient: user.uid,
+        plastik,
+        comment,
+        Products: products,
+        latitude: marked.latitude ? marked.latitude : '',
+        longitude: marked.longitude ? marked.longitude : '',
+      };
+
+      setLoading(true);
+      order(body)
+        .then(() => {
+          navigation.navigate('Success');
+          dispatch(clearAll());
+        })
+        .catch(() => {
+          setErrorText('произошла ошибка');
+        })
+        .finally(() => {
+          setLoading(false);
+          setModalVisible(false);
+          setMarked({});
+          setAdress('');
+          setComment('');
+        });
+    } else {
       setModalVisible(false);
       setErrorText(
-        strings.getLanguage() === 'ru' ? 'напишите адресс' : 'Adressni yozing',
+        strings.getLanguage() === 'ru'
+          ? 'напишите адресс'
+          : 'Adressni kiriting',
       );
       return;
     }
-
-    const body = {
-      Adress: adress,
-      uidclient: user.uid,
-      plastik,
-      comment,
-      Products: products,
-      latitude: marked.latitude ? marked.latitude : '',
-      longitude: marked.longitude ? marked.longitude : '',
-    };
-
-    setLoading(true);
-    order(body)
-      .then((res) => {
-        if (res) {
-          navigation.navigate('Success');
-          dispatch(clearAll());
-        } else {
-          setErrorText('произошла ошибка');
-        }
-      })
-      .finally(() => {
-        setLoading(false);
-        setModalVisible(false);
-        setMarked({});
-        setAdress('');
-        setComment('');
-      });
   }
 
   return (

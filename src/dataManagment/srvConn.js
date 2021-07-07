@@ -1,4 +1,3 @@
-import {Alert} from 'react-native';
 import {showMessage} from 'react-native-flash-message';
 import {host, token} from '../Constants/network';
 
@@ -123,13 +122,11 @@ export async function order(body) {
       body: JSON.stringify(body),
     });
     if (!response.ok) {
-      Alert.alert('Ошибка подключения ', response.status.toString());
-      return false;
+      throw Error('Ошибка подключения ', response.status.toString());
     }
 
     if (response.status === 200) return true;
   } catch (err) {
-    Alert.alert('Ошибка', err.message);
-    return false;
+    throw Error(err.message);
   }
 }
