@@ -14,7 +14,7 @@ import {getBalanceThunk} from '../../redux/thunks/balance-thunks';
 import {strings} from '../../Constants/localization';
 import OrdersIcon from '../../assets/Drawer/List';
 import HistoryList from '../drawer/HistoryList';
-import {widthPercentageToDP} from 'react-native-responsive-screen';
+import {checkUpdateNeeded} from '../../utils/helpers';
 
 const Drawer = createDrawerNavigator();
 
@@ -25,6 +25,7 @@ export default function Root() {
     if (user) {
       dispatch(getBalanceThunk(user));
       dispatch(getStocksThunk());
+      checkUpdateNeeded();
     }
   }, [user]);
 

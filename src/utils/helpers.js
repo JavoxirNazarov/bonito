@@ -1,3 +1,6 @@
+import {Alert, Linking} from 'react-native';
+import VersionCheck from 'react-native-version-check';
+
 export function dateParser(date) {
   let day =
     date.getDate() < 10
@@ -24,12 +27,11 @@ export function sendDate(date) {
 
 export function toCurrency(number) {
   if (number) {
-    let num = number.toString().replace(/(\d)(?=(\d{3})+(\D|$))/g, '$1 ');
-
+    const num = number.toString().replace(/(\d)(?=(\d{3})+(\D|$))/g, '$1 ');
     return num;
-  } else {
-    return '0';
   }
+
+  return '0';
 }
 
 export function calculateCost(products) {
@@ -59,3 +61,28 @@ export function randomColor() {
 export function isEmpty(obj) {
   return Reflect.ownKeys(obj).length === 0 && obj.constructor === Object;
 }
+
+export const checkUpdateNeeded = async () => {
+  let updateNeeded = await VersionCheck.needUpdate();
+  if (updateNeeded?.isNeeded) {
+    Alert.alert(
+      'Please Udate',
+      'You will have to update your app to the latest version to continiu using.',
+      [
+        {
+          text: 'Update',
+          onPress: async () => {
+            if (updateNeeded?.storeUrl) Linking.openURL(updateNeeded?.storeUrl);
+          },
+        },
+        {
+          text: 'Cancel',
+          style: 'cancel',
+        },
+        {
+          cancelable: true,
+        },
+      ],
+    );
+  }
+};

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {
   ImageBackground,
   ScrollView,
@@ -19,15 +19,7 @@ import {strings} from '../../Constants/localization';
 import {order} from '../../dataManagment/srvConn';
 import {clearAll} from '../../redux/reducers/products-reducer';
 import {calculateCost, isEmpty, toCurrency} from '../../utils/helpers';
-
-function totalCost(products) {
-  let result = 0;
-  if (products.length)
-    products.forEach((el) => {
-      result += el.ЦенаСоСкидкой * el.amount;
-    });
-  return result && toCurrency(result);
-}
+import {knowLocation} from '../../utils/LocationPermission';
 
 export default function List({navigation}) {
   const dispatch = useDispatch();
@@ -41,39 +33,18 @@ export default function List({navigation}) {
 
   //
   const [adress, setAdress] = useState('');
+  const [region, setRegion] = useState({
+    latitude: 41.2995,
+    longitude: 69.2401,
+    latitudeDelta: 0.0922,
+    longitudeDelta: 0.0421,
+  });
   const [marked, setMarked] = useState({});
   const [comment, setComment] = useState('');
   const [plastik, setPlastik] = useState(false);
 
   function makeOrder() {
-    if (!!adress.trim() || !isEmpty(marked)) {
-      const body = {
-        Adress: adress,
-        uidclient: user.uid,
-        plastik,
-        comment,
-        Products: products,
-        latitude: marked.latitude ? marked.latitude : '',
-        longitude: marked.longitude ? marked.longitude : '',
-      };
-
-      setLoading(true);
-      order(body)
-        .then(() => {
-          navigation.navigate('Success');
-          dispatch(clearAll());
-        })
-        .catch(() => {
-          setErrorText('произошла ошибка');
-        })
-        .finally(() => {
-          setLoading(false);
-          setModalVisible(false);
-          setMarked({});
-          setAdress('');
-          setComment('');
-        });
-    } else {
+    if (!adress.trim()) {
       setModalVisible(false);
       setErrorText(
         strings.getLanguage() === 'ru'
@@ -82,7 +53,55 @@ export default function List({navigation}) {
       );
       return;
     }
+    if (isEmpty(marked)) {
+      setModalVisible(false);
+      setErrorText(
+        strings.getLanguage() === 'ru'
+          ? 'Выберите локацию'
+          : 'Lokatsiyani tanlang',
+      );
+      knowLocation(setRegion, setMarked);
+      return;
+    }
+    const body = {
+      Adress: adress,
+      uidclient: user.uid,
+      plastik,
+      comment,
+      Products: products,
+      latitude: marked.latitude ? marked.latitude : '',
+      longitude: marked.longitude ? marked.longitude : '',
+    };
+
+    setLoading(true);
+    order(body)
+      .then(() => {
+        navigation.navigate('Success');
+        dispatch(clearAll());
+      })
+      .catch(() => {
+        setErrorText('произошла ошибка');
+      })
+      .finally(() => {
+        setLoading(false);
+        setModalVisible(false);
+        setMarked({});
+        setAdress('');
+        setComment('');
+      });
   }
+
+  useEffect(() => {
+    knowLocation(setRegion, setMarked);
+  }, []);
+
+  const totalCost = useMemo(() => {
+    const result = products.reduce((acc, currVal) => {
+      return acc + currVal.ЦенаСоСкидкой * currVal.amount;
+    }, 0);
+
+    return toCurrency(result);
+  }, [products]);
 
   return (
     <>
@@ -98,6 +117,8 @@ export default function List({navigation}) {
         loading={loading}
         marked={marked}
         setMarked={setMarked}
+        region={region}
+        setRegion={setRegion}
       />
       <Alert setShow={() => setErrorText('')} text={errortext} />
 
@@ -121,7 +142,7 @@ export default function List({navigation}) {
             <View style={styles.totalCost}>
               <Text style={styles.text}>{strings.LIST.TOTAL}:</Text>
               <Text style={styles.cost}>
-                {totalCost(products)} {strings.SUMM}
+                {totalCost} {strings.SUMM}
               </Text>
             </View>
 

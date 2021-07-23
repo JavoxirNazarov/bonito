@@ -8,6 +8,7 @@ import Photo from './Photo';
 import {
   incrementProduct,
   decrementProduct,
+  removeProduct,
 } from '../../redux/reducers/products-reducer';
 import {strings} from '../../Constants/localization';
 
@@ -46,8 +47,8 @@ export default function Block({product, index}) {
         <View style={styles.amount}>
           <TouchableWithoutFeedback
             onPress={() => {
-              if (product.amount <= 0) return;
-              dispatch(decrementProduct(index));
+              if (product.amount == 1) dispatch(removeProduct(index));
+              else dispatch(decrementProduct(index));
             }}>
             <View style={styles.amountBtn}>
               <MaterialCommunityIcons name="minus" size={25} color="#9B9B9B" />

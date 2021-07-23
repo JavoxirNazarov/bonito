@@ -1,5 +1,5 @@
 import RadioButtonRN from 'radio-buttons-react-native';
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {
   Dimensions,
   ImageBackground,
@@ -16,7 +16,6 @@ import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import {heightPercentageToDP as hp} from 'react-native-responsive-screen';
 import Background from '../../assets/registration-background.png';
 import {strings} from '../../Constants/localization';
-import {knowLocation} from '../../utils/LocationPermission';
 import LightBtn from '../Registration/LightBtn';
 
 const {width} = Dimensions.get('screen');
@@ -33,18 +32,9 @@ export default function OrderModal({
   loading,
   marked,
   setMarked,
+  region,
+  setRegion,
 }) {
-  const [region, setRegion] = useState({
-    latitude: 41.2995,
-    longitude: 69.2401,
-    latitudeDelta: 0.0922,
-    longitudeDelta: 0.0421,
-  });
-
-  useEffect(() => {
-    knowLocation(setRegion, setMarked);
-  }, []);
-
   return (
     <Modal
       animationType="slide"

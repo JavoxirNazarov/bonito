@@ -25,39 +25,33 @@ export default (state = defaultState, action) => {
     case INCREMENT_PRODUCT:
       return {
         ...state,
-        products: [
-          ...state.products.map((el, index) => {
-            if (index == action.payload) {
-              return {...el, amount: el.amount + 1};
-            } else {
-              return el;
-            }
-          }),
-        ],
+        products: state.products.map((el, index) => {
+          if (index === action.payload) {
+            return {...el, amount: el.amount + 1};
+          }
+          return el;
+        }),
       };
 
     case DECREMENT_PRODUCT:
       return {
         ...state,
-        products: [
-          ...state.products.map((el, index) => {
-            if (index == action.payload) {
-              return {...el, amount: el.amount - 1};
-            } else {
-              return el;
-            }
-          }),
-        ],
+        products: state.products.map((el, index) => {
+          if (index === action.payload) {
+            return {...el, amount: el.amount - 1};
+          }
+          return el;
+        }),
       };
 
     case REMOVE_PRODUCT:
       return {
         ...state,
-        products: [...state.products.filter((el, i) => i !== action.payload)],
+        products: state.products.filter((_, i) => i !== action.payload),
       };
 
     case CLEAR_ALL:
-      return {...state, products: []};
+      return defaultState;
 
     default:
       return state;
