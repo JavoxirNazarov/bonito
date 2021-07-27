@@ -1,5 +1,6 @@
 import {Alert, Linking} from 'react-native';
 import VersionCheck from 'react-native-version-check';
+import {strings} from '../Constants/localization';
 
 export function dateParser(date) {
   let day =
@@ -43,7 +44,7 @@ export function calculateCost(products) {
 
   if (typeof cost == 'number') return cost;
   else if (typeof cost == 'string') return +cost;
-  else return 0;
+  return 0;
 }
 
 export function randomColor() {
@@ -65,24 +66,20 @@ export function isEmpty(obj) {
 export const checkUpdateNeeded = async () => {
   let updateNeeded = await VersionCheck.needUpdate();
   if (updateNeeded?.isNeeded) {
-    Alert.alert(
-      'Please Udate',
-      'You will have to update your app to the latest version to continiu using.',
-      [
-        {
-          text: 'Update',
-          onPress: async () => {
-            if (updateNeeded?.storeUrl) Linking.openURL(updateNeeded?.storeUrl);
-          },
+    Alert.alert(strings.UPDATE.TITLE, strings.UPDATE.TEXT, [
+      {
+        text: strings.UPDATE.UPDATE,
+        onPress: async () => {
+          if (updateNeeded?.storeUrl) Linking.openURL(updateNeeded?.storeUrl);
         },
-        {
-          text: 'Cancel',
-          style: 'cancel',
-        },
-        {
-          cancelable: true,
-        },
-      ],
-    );
+      },
+      {
+        text: strings.UPDATE.BACK,
+        style: 'cancel',
+      },
+      {
+        cancelable: true,
+      },
+    ]);
   }
 };

@@ -136,8 +136,8 @@ android {
         applicationId "com.bonito"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 37
-        versionName "3.7"
+        versionCode 39
+        versionName "3.9"
         missingDimensionStrategy 'react-native-camera', 'general' 
         multiDexEnabled true
     }

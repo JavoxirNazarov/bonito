@@ -2,6 +2,12 @@ import LocalizedStrings from 'react-native-localization';
 
 export const strings = new LocalizedStrings({
   ru: {
+    UPDATE: {
+      TITLE: 'Обновить приложение!',
+      TEXT: 'Обновитье  приложение чтобы видеть новинки',
+      UPDATE: 'Обновить',
+      BACK: 'Назад',
+    },
     REG_ERROR: {
       NAME: 'Поле "имя" должно быть заполнено',
     },
@@ -131,6 +137,12 @@ export const strings = new LocalizedStrings({
     },
   },
   uz: {
+    UPDATE: {
+      TITLE: 'Ilovani yangilang!',
+      TEXT: "Oxirgi yangiliklarni ko'rish uchun ilovani yangilang.",
+      UPDATE: 'Yangilash',
+      BACK: 'ortga',
+    },
     REG_ERROR: {
       NAME: 'Ismingizni yozing',
     },
